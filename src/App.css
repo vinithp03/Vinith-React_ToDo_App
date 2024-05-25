@@ -1,0 +1,23 @@
+p{
+  font-weight: 900;
+  font-size: 45px;
+  margin : 10px;
+  margin-bottom: 20px;
+}
+
+input {
+ width: 100%;
+}
+
+.items
+{
+  text-align: left;
+}
+
+.new-row{
+  margin:10px 5px ;
+}
+
+.new-button{
+  min-width:80px;
+}
