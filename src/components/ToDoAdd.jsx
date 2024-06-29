@@ -1,22 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
+import styles from "./ToDoAdd.module.css"
 
-const ToDoAdd = () => {
+const ToDoAdd = ({ onNewItem }) => {
+
+  const [toDoTask, setTask] = useState();
+  const [toDoDate, setDate] = useState();
+
+  const handleNewTask = (event) => {
+    setTask(event.target.value);
+  }
+
+  const handleNewDate = (event) => {
+    setDate(event.target.value);
+  }
+
+  const addNewItem = () => {
+    onNewItem(toDoTask, toDoDate);
+    setTask("");
+    setDate("");
+  }
+
   return (
-    <div>
-      <div class="row new-row">
-        <div class="col-6">
-          <input type="text" placeholder="Enter Todo Here" />
+    <div className={styles.toDoPlace}>
+      <div className="row new-row">
+        <div className="col-6">
+          <input type="text" placeholder="Enter Todo Here" value={toDoTask} onChange={handleNewTask} />
         </div>
-        <div class="col-4">
-          <input type="date" />
+        <div className="col-4">
+          <input type="date" value={toDoDate} onChange={handleNewDate} />
         </div>
-        <div class="col-2">
-          <button type="button" class="btn btn-success new-button">
+        <div className="col-2">
+          <button type="button" className="btn btn-success new-button" onClick={addNewItem}>
             Add
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

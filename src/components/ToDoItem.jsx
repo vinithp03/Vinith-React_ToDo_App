@@ -1,13 +1,13 @@
-const ToDoItem = () => {
-  let item = "Buy Milk";
-  let item2 = "Go to college";
+const ToDoItem = ({ todoDate, todoName, onDelete }) => {
+
   return (
     <div>
       <div class="row new-row">
-        <div class="col-6">{item}</div>
-        <div class="col-4">03/02/2024</div>
+        <div class="col-6">{todoName}</div>
+        <div class="col-4">{todoDate}</div>
         <div class="col-2">
-          <button type="button" class="btn btn-danger new-button">
+          <button type="button" class="btn btn-danger new-button"
+            onClick={() => onDelete(todoName)} >
             Delete
           </button>
         </div>
