@@ -1,14 +1,20 @@
+import { useContext } from "react";
+import { MdDeleteForever } from "react-icons/md";
+import { TodoItemsContext } from "../store/ToDoItemsStore";
+
 const ToDoItem = ({ todoDate, todoName, onDelete }) => {
+
+  const { deleteItem } = useContext(TodoItemsContext);
 
   return (
     <div>
       <div class="row new-row">
-        <div class="col-6">{todoName}</div>
-        <div class="col-4">{todoDate}</div>
-        <div class="col-2">
-          <button type="button" class="btn btn-danger new-button"
-            onClick={() => onDelete(todoName)} >
-            Delete
+        <div className="col-6">{todoName}</div>
+        <div className="col-4">{todoDate}</div>
+        <div className="col-2">
+          <button type="button" className="btn btn-danger new-button"
+            onClick={() => deleteItem(todoName)} >
+            <MdDeleteForever />
           </button>
         </div>
       </div>

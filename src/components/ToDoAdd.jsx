@@ -1,40 +1,40 @@
-import React, { useState } from "react";
+import React, { useContext, useRef } from "react";
 import styles from "./ToDoAdd.module.css"
+import { BsDatabaseFillAdd } from "react-icons/bs";
+import { TodoItemsContext } from "../store/ToDoItemsStore";
 
-const ToDoAdd = ({ onNewItem }) => {
+const ToDoAdd = () => {
+  const { toDoItems, addNewItem } = useContext(TodoItemsContext);
 
-  const [toDoTask, setTask] = useState();
-  const [toDoDate, setDate] = useState();
+  const taskName = useRef("");
+  const dueDate = useRef("");
 
-  const handleNewTask = (event) => {
-    setTask(event.target.value);
+  const handleNewItem = (event) => {
+    const toDoTask = taskName.current.value;
+    const toDoDate = dueDate.current.value;
+    event.preventDefault();
+    addNewItem(toDoTask, toDoDate);
+    taskName.current.value = "";
+    dueDate.current.value = "";
   }
 
-  const handleNewDate = (event) => {
-    setDate(event.target.value);
-  }
-
-  const addNewItem = () => {
-    onNewItem(toDoTask, toDoDate);
-    setTask("");
-    setDate("");
-  }
 
   return (
     <div className={styles.toDoPlace}>
-      <div className="row new-row">
+      <form className="row new-row" onSubmit={handleNewItem}>
         <div className="col-6">
-          <input type="text" placeholder="Enter Todo Here" value={toDoTask} onChange={handleNewTask} />
+          <input type="text" placeholder="Enter Todo Here"
+            ref={taskName} />
         </div>
         <div className="col-4">
-          <input type="date" value={toDoDate} onChange={handleNewDate} />
+          <input type="date" ref={dueDate} />
         </div>
         <div className="col-2">
-          <button type="button" className="btn btn-success new-button" onClick={addNewItem}>
-            Add
+          <button type="submit" className="btn btn-success new-button">
+            <BsDatabaseFillAdd />
           </button>
         </div>
-      </div>
+      </form>
     </div >
   );
 };

@@ -4,28 +4,39 @@ import Items from "./components/Items";
 import EmptyMesage from "./components/EmptyMesage";
 import { useState } from "react";
 import "./App.css";
+import { TodoItemsContext } from "./store/ToDoItemsStore";
 
 function App() {
 
-  const [toItems, setItems] = useState([]);
+  const [toDoItems, setItems] = useState([]);
 
-  const handleNewItem = (itemName, dueDate) => {
-    const initialItem = [...toItems, { task: itemName, date: dueDate }];
-    setItems(initialItem);
+  const addNewItem = (itemName, dueDate) => {
+    setItems((currentValue) =>
+      [...currentValue, { task: itemName, date: dueDate }]
+    );
   }
 
-  const handleDeleteItem = (itemName) => {
-    const afterDelete = toItems.filter(item => item.task !== itemName);
+  const deleteItem = (itemName) => {
+
+    const afterDelete = toDoItems.filter(item => item.task !== itemName);
     setItems(afterDelete);
   }
 
   return (
-    <center className="todo-container">
-      <AppName />
-      <ToDoAdd onNewItem={handleNewItem} />
-      <Items toDoItems={toItems} onDelete={handleDeleteItem} />
-      {toItems.length === 0 && <EmptyMesage />}
-    </center>
+    <TodoItemsContext.Provider value={
+      {
+        toDoItems,
+        addNewItem,
+        deleteItem
+      }}
+    >
+      <center className="todo-container">
+        <AppName />
+        <ToDoAdd />
+        <Items />
+        <EmptyMesage />
+      </center>
+    </TodoItemsContext.Provider>
   );
 }
 

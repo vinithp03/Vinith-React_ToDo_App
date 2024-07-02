@@ -1,12 +1,11 @@
-
 input {
- width: 100%;
+  width: 100%;
 }
 
-.new-row{
-  margin:10px 5px ;
+.new-row {
+  margin: 10px 5px;
 }
 
-.new-button{
-  min-width:80px;
+.new-button {
+  min-width: 80px;
 }
