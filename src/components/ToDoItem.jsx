@@ -8,7 +8,7 @@ const ToDoItem = ({ todoDate, todoName, onDelete }) => {
 
   return (
     <div>
-      <div class="row new-row">
+      <div className="row new-row">
         <div className="col-6">{todoName}</div>
         <div className="col-4">{todoDate}</div>
         <div className="col-2">

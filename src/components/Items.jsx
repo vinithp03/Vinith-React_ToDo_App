@@ -8,7 +8,8 @@ function Items() {
   return (
     <>
       <div className={styles.itemsContainer}>
-        {toDoItems.map((item) => (<ToDoItem todoName={item.task} todoDate={item.date} />))}
+        {toDoItems.map((item) => (
+          <ToDoItem key={item.name} todoName={item.task} todoDate={item.date} />))}
       </div>
     </>
   )
