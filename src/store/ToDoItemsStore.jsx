@@ -43,6 +43,8 @@ const TodoItemsContextProvider = ({ children }) => {
       }
     };
     dispatch(deleteItemRequest);
+
+    console.log(children);
   }
 
   return (
