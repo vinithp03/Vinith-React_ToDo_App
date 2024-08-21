@@ -12,7 +12,7 @@ input {
 }
 
 body {
-  background-image: url("/public/toDoBackground.jpg");
+  background-image: url("/toDoBackground.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
