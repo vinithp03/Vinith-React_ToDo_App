@@ -1,6 +1,7 @@
 input {
   width: 100%;
   height: 10vh;
+  z-index: 1;
 }
 
 .new-row {
@@ -12,10 +13,23 @@ input {
 }
 
 body {
+  position: relative;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background-image: url("/toDoBackground.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  height: 100vh;
-  margin: 0;
+  filter: blur(5px);
+  z-index: -1;
 }

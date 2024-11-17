@@ -1,67 +1,59 @@
-import { createContext, useReducer } from 'react'
-export const TodoItemsContext = createContext(
-  {
-    toDoItems: [],
-    addNewItem: () => { },
-    deleteItem: () => { },
-  }
-);
+import { createContext, useReducer, useEffect } from "react";
+
+export const TodoItemsContext = createContext({
+  toDoItems: [],
+  addNewItem: () => { },
+  deleteItem: () => { },
+});
 
 const toDoReducer = (currentItems, action) => {
+  let updatedItems = currentItems;
 
-  let updateItem = currentItems;
   if (action.type === "NEW_ITEM") {
-    updateItem = [...currentItems, { task: action.payload.itemName, date: action.payload.dueDate }];
+    updatedItems = [
+      ...currentItems,
+      { task: action.payload.itemName, date: action.payload.dueDate },
+    ];
+  } else if (action.type === "DELETE_ITEM") {
+    updatedItems = currentItems.filter(
+      (item) => item.task !== action.payload.itemName
+    );
+  }
 
-  }
-  else if (action.type === "DELETE_ITEM") {
-    updateItem = currentItems.filter(item => item.task !== action.payload.itemName);
-  }
-  return updateItem;
-}
+  // Persist updated items in localStorage
+  localStorage.setItem("toDoItems", JSON.stringify(updatedItems));
+  return updatedItems;
+};
 
 const TodoItemsContextProvider = ({ children }) => {
-  const [toDoItems, dispatch] = useReducer(toDoReducer, []);
+  // Retrieve initial state from localStorage
+  const initialItems = JSON.parse(localStorage.getItem("toDoItems")) || [];
+  const [toDoItems, dispatch] = useReducer(toDoReducer, initialItems);
 
   const addNewItem = (itemName, dueDate) => {
-    const setNewItem = {
+    dispatch({
       type: "NEW_ITEM",
-      payload: {
-        itemName,
-        dueDate,
-      }
-    };
-    dispatch(setNewItem);
-
-  }
+      payload: { itemName, dueDate },
+    });
+  };
 
   const deleteItem = (itemName) => {
-    const deleteItemRequest = {
+    dispatch({
       type: "DELETE_ITEM",
-      payload: {
-        itemName,
-      }
-    };
-    dispatch(deleteItemRequest);
+      payload: { itemName },
+    });
+  };
 
-    console.log(children);
-  }
+  // Ensure localStorage is updated when `toDoItems` changes
+  useEffect(() => {
+    localStorage.setItem("toDoItems", JSON.stringify(toDoItems));
+  }, [toDoItems]);
 
   return (
-    <TodoItemsContext.Provider
-      value={
-        {
-          toDoItems,
-          addNewItem,
-          deleteItem
-        }
-      }
-    >
+    <TodoItemsContext.Provider value={{ toDoItems, addNewItem, deleteItem }}>
       {children}
     </TodoItemsContext.Provider>
   );
-
-}
+};
 
 export default TodoItemsContextProvider;
-

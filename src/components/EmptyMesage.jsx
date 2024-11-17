@@ -7,7 +7,7 @@ const EmptyMesage = () => {
   const { toDoItems } = useContext(TodoItemsContext); {/*use context (common shared storage) */ }
 
   return (
-    toDoItems.length === 0 && <h2 className={styles.empty}>Enjoy your day</h2>
+    toDoItems.length === 0 && <h2 className={styles.empty}>Start your day</h2>
   )
 }
 
