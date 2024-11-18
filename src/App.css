@@ -24,7 +24,7 @@ body::before {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 170vh;
   background-image: url("/toDoBackground.jpg");
   background-size: cover;
   background-repeat: no-repeat;
